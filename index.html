@@ -1,1 +1,30 @@
-g
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tracking Servizio</title>
+</head>
+<body>
+    <h1>Tracking Commissione</h1>
+    <div id="content"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+fetch(`data/${id}.json`)
+.then(res => res.json())
+.then(data => {
+    document.getElementById("content").innerHTML = `
+        <p><strong>ID:</strong> ${data.id}</p>
+        <p><strong>Servizio:</strong> ${data.servizio}</p>
+        <p><strong>Stato:</strong> ${data.stato}</p>
+        <p><strong>Consegna:</strong> ${data.dataConsegna}</p>
+        <p><strong>Descrizione:</strong> ${data.descrizione}</p>
+    `;
+})
+.catch(() => {
+    document.getElementById("content").innerText = "Tracking non trovato.";
+});
+</script>
+</body>
+</html>
